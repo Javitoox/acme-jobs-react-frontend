@@ -1,31 +1,36 @@
 import "./App.css";
-import axios from "axios";
 import React, { Component } from "react";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { Button } from "primereact/button";
+import ShoutList from "./components/ShoutList";
+import { Splitter, SplitterPanel } from "primereact/splitter";
 
 class App extends Component {
+  showShoutList = this.showShoutList.bind(this);
+
   state = {
-    data: null,
+    baseUrl: "http://localhost:8080/Acme-Jobs/api",
+    shoutList: null,
   };
 
-  componentDidMount() {
-    axios.get("http://localhost:8080/Acme-Jobs/api/shout").then((res) => {
-      this.setState({ data: res.data });
+  showShoutList(event) {
+    this.setState({
+      shoutList: <ShoutList baseUrl={this.state.baseUrl}></ShoutList>,
     });
   }
 
   render() {
     return (
-      <div className="datatable-templating-demo">
-        <div className="card">
-          <DataTable value={this.state.data} header={"Shouts"}>
-            <Column field="moment" header="Moment"></Column>
-            <Column field="author" header="Author"></Column>
-            <Column field="text" header="Text"></Column>
-          </DataTable>
-          <Button className="mr-3" label="Add"/>
+      <div>
+        {this.state.shoutList}
+        <div className="card" onClick={this.showShoutList}>
+          <h5>Control panel</h5>
+          <Splitter style={{ height: "300px" }} className="p-mb-5">
+            <SplitterPanel className="p-d-flex p-ai-center p-jc-center">
+              List shouts
+            </SplitterPanel>
+            <SplitterPanel className="p-d-flex p-ai-center p-jc-center">
+              Create shout
+            </SplitterPanel>
+          </Splitter>
         </div>
       </div>
     );
