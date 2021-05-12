@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 
-class ShoutList extends Component {
+class ShoutCreate extends Component {
   state = {
     data: null,
   };
@@ -27,4 +27,4 @@ class ShoutList extends Component {
   }
 }
 
-export default ShoutList;
+export default ShoutCreate;
