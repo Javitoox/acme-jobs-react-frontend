@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import ShoutList from "./components/ShoutList";
 import ShoutCreate from "./components/ShoutCreate";
 import { Splitter, SplitterPanel } from "primereact/splitter";
-import { Button } from "primereact/button";
+import PanelZone from "./components/PanelZone";
 
 class App extends Component {
   shoutList = this.shoutList.bind(this);
@@ -15,28 +15,12 @@ class App extends Component {
     shoutCreate: null,
   };
 
-  shoutList() {
-    if (this.state.shoutList == null) {
-      this.setState({
-        shoutList: <ShoutList baseUrl={this.state.baseUrl}></ShoutList>,
-      });
-    } else {
-      this.setState({
-        shoutList: null,
-      });
-    }
+  shoutList(data) {
+    this.setState({ shoutList: data });
   }
 
-  shoutCreate() {
-    if (this.state.shoutCreate == null) {
-      this.setState({
-        shoutCreate: <ShoutCreate baseUrl={this.state.baseUrl}></ShoutCreate>,
-      });
-    } else {
-      this.setState({
-        shoutCreate: null,
-      });
-    }
+  shoutCreate(data) {
+    this.setState({ shoutCreate: data });
   }
 
   render() {
@@ -46,22 +30,20 @@ class App extends Component {
           <h2 className="p-d-flex p-ai-center p-jc-center">Control panel</h2>
           <Splitter style={{ height: "300px" }} className="p-mb-5">
             <SplitterPanel>
-              <Button
-                className="p-d-flex p-ai-center p-jc-center p-button-raised p-button-text"
-                style={{ height: "100%", width: "100%" }}
-                onClick={this.shoutList}
-              >
-                List shouts
-              </Button>
+              <PanelZone
+                name="List shouts"
+                action={<ShoutList baseUrl={this.state.baseUrl}></ShoutList>}
+                onShow={this.shoutList}
+                data={this.state.shoutList}
+              ></PanelZone>
             </SplitterPanel>
             <SplitterPanel>
-              <Button
-                className="p-d-flex p-ai-center p-jc-center p-button-raised p-button-text"
-                style={{ height: "100%", width: "100%" }}
-                onClick={this.shoutCreate}
-              >
-                Create shout
-              </Button>
+              <PanelZone
+                name="Create shout"
+                action={<ShoutCreate baseUrl={this.state.baseUrl}></ShoutCreate>}
+                onShow={this.shoutCreate}
+                data={this.state.shoutCreate}
+              ></PanelZone>
             </SplitterPanel>
           </Splitter>
         </div>
