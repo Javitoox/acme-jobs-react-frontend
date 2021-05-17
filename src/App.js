@@ -26,27 +26,25 @@ class App extends Component {
   render() {
     return (
       <div>
-        <div className="card">
-          <h2 className="p-d-flex p-ai-center p-jc-center">Control panel</h2>
-          <Splitter style={{ height: "300px" }} className="p-mb-5">
-            <SplitterPanel>
-              <PanelZone
-                name="List shouts"
-                action={<ShoutList baseUrl={this.state.baseUrl}></ShoutList>}
-                onShow={this.shoutList}
-                data={this.state.shoutList}
-              ></PanelZone>
-            </SplitterPanel>
-            <SplitterPanel>
-              <PanelZone
-                name="Create shout"
-                action={<ShoutCreate baseUrl={this.state.baseUrl}></ShoutCreate>}
-                onShow={this.shoutCreate}
-                data={this.state.shoutCreate}
-              ></PanelZone>
-            </SplitterPanel>
-          </Splitter>
-        </div>
+        <h3 className="p-d-flex p-ai-center p-jc-center">Control panel</h3>
+        <Splitter style={{ height: "300px" }} className="p-mb-5">
+          <SplitterPanel>
+            <PanelZone
+              name="List shouts"
+              action={<ShoutList baseUrl={this.state.baseUrl}></ShoutList>}
+              onShow={this.shoutList}
+              data={this.state.shoutList}
+            ></PanelZone>
+          </SplitterPanel>
+          <SplitterPanel>
+            <PanelZone
+              name="Create shout"
+              action={<ShoutCreate baseUrl={this.state.baseUrl}></ShoutCreate>}
+              onShow={this.shoutCreate}
+              data={this.state.shoutCreate}
+            ></PanelZone>
+          </SplitterPanel>
+        </Splitter>
         {this.state.shoutList}
         {this.state.shoutCreate}
       </div>

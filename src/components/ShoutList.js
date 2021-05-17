@@ -19,8 +19,20 @@ class ShoutList extends Component {
       <div>
         <DataTable paginator rows={5} value={this.state.data} header={"Shouts"}>
           <Column sortable field="moment" header="Moment"></Column>
-          <Column sortable filter filterPlaceholder="Search by author" field="author" header="Author"></Column>
-          <Column sortable filter filterPlaceholder="Search by text" field="text" header="Text"></Column>
+          <Column
+            sortable
+            filter
+            filterPlaceholder="Search by author"
+            field="author"
+            header="Author"
+          ></Column>
+          <Column
+            sortable
+            filter
+            filterPlaceholder="Search by text"
+            field="text"
+            header="Text"
+          ></Column>
         </DataTable>
       </div>
     );

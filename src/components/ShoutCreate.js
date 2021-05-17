@@ -47,15 +47,16 @@ class ShoutCreate extends Component {
       author: this.state.author,
       text: this.state.text,
       info: this.state.info,
+      moment: new Date(),
     };
 
-    axios.post(this.props.baseUrl + "/shout/create", shout, { withCredentials: true }).then((res) => {
+    axios.post(this.props.baseUrl + "/shout/create", shout).then((res) => {
       this.respuesta(res.status, res.data);
     });
   };
 
   respuesta(status, data) {
-    if (status === 400) {
+    if (status === 203) {
       data.forEach((e) => this.error(e.field, e.defaultMessage));
     } else if (status === 201) {
       this.setState({
