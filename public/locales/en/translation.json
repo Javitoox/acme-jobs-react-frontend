@@ -1,0 +1,39 @@
+{
+    "panel": {
+        "title": "Control panel"
+    },
+
+    "languages": {
+        "title": "Languages",
+        "es": "Spanish",
+        "en": "English"
+    },
+
+    "shouts": {
+        "name": "Shouts",
+        "create":{ 
+            "name": "Create shout",
+            "label":{
+                "author": "Author",
+                "text": "Text",
+                "info": "Information"
+            },
+            "send": "Shout!",
+            "succes": "Successful creation"
+        },
+        "list": {
+            "name": "List shouts",
+            "moment": "Moment",
+            "author": "Author",
+            "text": "Text",
+            "search": {
+                "author": "Search by author",
+                "text": "Search by text"
+            }
+        }
+    },
+
+    "error":{
+        "connection": "Connection could not be established"
+    }
+}

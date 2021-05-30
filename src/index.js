@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
@@ -8,13 +8,14 @@ import "primereact/resources/themes/bootstrap4-dark-blue/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import PrimeReact from 'primereact/api';
+import './i18n';
 
 PrimeReact.ripple = true;
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Suspense fallback="loading">
     <App />
-  </React.StrictMode>,
+  </Suspense>,
   document.getElementById('root')
 );
 

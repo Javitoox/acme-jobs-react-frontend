@@ -1,0 +1,39 @@
+{
+    "panel": {
+        "title": "Panel de control"
+    },
+    
+    "languages": {
+        "title": "Idiomas",
+        "es": "Español",
+        "en": "Inglés"
+    },
+
+    "shouts": {
+        "name": "Gritos",
+        "create":{ 
+            "name": "Crear grito",
+            "label":{
+                "author": "Autor",
+                "text": "Texto",
+                "info": "Información"
+            },
+            "send": "¡Gritar!",
+            "succes": "Creación exitosa"
+        },
+        "list": {
+            "name": "Listar gritos",
+            "moment": "Momento",
+            "author": "Autor",
+            "text": "Texto",
+            "search": {
+                "author": "Buscar por autor",
+                "text": "Buscar por texto"
+            }
+        }
+    },
+
+    "error":{
+        "connection": "No se pudo establecer la conexión"
+    }
+}

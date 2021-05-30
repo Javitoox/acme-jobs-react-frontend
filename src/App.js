@@ -1,55 +1,84 @@
 import "./App.css";
-import React, { Component } from "react";
+import React, { useState } from "react";
 import ShoutList from "./components/ShoutList";
 import ShoutCreate from "./components/ShoutCreate";
 import { Splitter, SplitterPanel } from "primereact/splitter";
 import PanelZone from "./components/PanelZone";
+import { useTranslation } from "react-i18next";
+import { Button } from "primereact/button";
 
-class App extends Component {
-  shoutList = this.shoutList.bind(this);
-  shoutCreate = this.shoutCreate.bind(this);
+function App() {
+  const { t, i18n } = useTranslation();
 
-  state = {
-    baseUrl: "http://localhost:8080/Acme-Jobs/api",
+  const baseUrl = "http://localhost:8080/Acme-Jobs/api";
+
+  const [state, setState] = useState({
     shoutList: null,
     shoutCreate: null,
-  };
+  });
 
-  shoutList(data) {
-    this.setState({ shoutList: data });
+  function shoutList(data) {
+    setState({ shoutList: data });
   }
 
-  shoutCreate(data) {
-    this.setState({ shoutCreate: data });
+  function shoutCreate(data) {
+    setState({ shoutCreate: data });
   }
 
-  render() {
-    return (
+  function translateClick(lang) {
+    i18n.changeLanguage(lang);
+  }
+
+  return (
+    <div>
+      <h5 className="p-d-flex p-ai-center p-jc-center">{t("panel.title")}</h5>
+      <Splitter style={{ height: "50px" }} className="p-mb-5">
+        <SplitterPanel>
+          <PanelZone
+            name={t("shouts.list.name")}
+            action={<ShoutList baseUrl={baseUrl}></ShoutList>}
+            onShow={shoutList}
+            data={state.shoutList}
+          ></PanelZone>
+        </SplitterPanel>
+        <SplitterPanel>
+          <PanelZone
+            name={t("shouts.create.name")}
+            action={<ShoutCreate baseUrl={baseUrl}></ShoutCreate>}
+            onShow={shoutCreate}
+            data={state.shoutCreate}
+          ></PanelZone>
+        </SplitterPanel>
+      </Splitter>
       <div>
-        <h3 className="p-d-flex p-ai-center p-jc-center">Control panel</h3>
-        <Splitter style={{ height: "300px" }} className="p-mb-5">
-          <SplitterPanel>
-            <PanelZone
-              name="List shouts"
-              action={<ShoutList baseUrl={this.state.baseUrl}></ShoutList>}
-              onShow={this.shoutList}
-              data={this.state.shoutList}
-            ></PanelZone>
-          </SplitterPanel>
-          <SplitterPanel>
-            <PanelZone
-              name="Create shout"
-              action={<ShoutCreate baseUrl={this.state.baseUrl}></ShoutCreate>}
-              onShow={this.shoutCreate}
-              data={this.state.shoutCreate}
-            ></PanelZone>
-          </SplitterPanel>
-        </Splitter>
-        {this.state.shoutList}
-        {this.state.shoutCreate}
+        {state.shoutList}
+        {state.shoutCreate}
       </div>
-    );
-  }
+      <h6 style={{ marginLeft: "10px", marginTop: "10px" }}>
+        {t("languages.title")}
+      </h6>
+      <div className="demo-container p-p-2">
+        <Button
+          icon="pi pi-fw pi-globe"
+          className="p-button-raised p-button-secondary p-button-text p-d-block"
+          label={t("languages.es")}
+          onClick={() => {
+            translateClick("es");
+            setState({ shoutList: null, shoutCreate: null });
+          }}
+        ></Button>
+        <Button
+          icon="pi pi-fw pi-globe"
+          className="p-button-raised p-button-secondary p-button-text"
+          label={t("languages.en")}
+          onClick={() => {
+            translateClick("en");
+            setState({ shoutList: null, shoutCreate: null });
+          }}
+        ></Button>
+      </div>
+    </div>
+  );
 }
 
 export default App;

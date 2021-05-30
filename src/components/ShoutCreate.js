@@ -1,181 +1,187 @@
 import axios from "axios";
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import "../css/login.css";
+import { useTranslation } from "react-i18next";
+import { ProgressBar } from "primereact/progressbar";
 
-class ShoutCreate extends Component {
-  author = this.author.bind(this);
-  text = this.text.bind(this);
-  info = this.info.bind(this);
+function ShoutCreate(props) {
+  const { t, i18n } = useTranslation();
+  const [author, setAuthor] = useState("");
+  const [text, setText] = useState("");
+  const [info, setInfo] = useState("");
+  const [authorError, setAuthorError] = useState(null);
+  const [textError, setTextError] = useState(null);
+  const [infoError, setInfoError] = useState(null);
+  const [succes, setSucces] = useState(null);
+  const [othersErrors, setOthersErrors] = useState(null);
 
-  state = {
-    author: "",
-    text: "",
-    info: "",
-    authorError: null,
-    textError: null,
-    infoError: null,
-    succes: null,
-    othersErrors: null,
-  };
-
-  author(event) {
-    this.setState({ author: event.target.value });
+  function authorChange(event) {
+    setAuthor(event.target.value);
   }
 
-  text(event) {
-    this.setState({ text: event.target.value });
+  function textChange(event) {
+    setText(event.target.value);
   }
 
-  info(event) {
-    this.setState({ info: event.target.value });
+  function infoChange(event) {
+    setInfo(event.target.value);
   }
 
-  handleSubmit = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
 
-    this.setState({
-      authorError: null,
-      textError: null,
-      infoError: null,
-      succes: null,
-      othersErrors: null,
-    });
+    setAuthorError(null);
+    setTextError(null);
+    setInfoError(null);
+    setSucces(null);
+    setOthersErrors(null);
 
     const shout = {
-      author: this.state.author,
-      text: this.state.text,
-      info: this.state.info,
+      author: author,
+      text: text,
+      info: info,
       moment: new Date(),
     };
 
-    axios.post(this.props.baseUrl + "/shout/create", shout).then((res) => {
-      this.respuesta(res.status, res.data);
-    });
+    function deleteErrorMessage() {
+      setOthersErrors(null);
+    }
+
+    axios
+      .post(props.baseUrl + "/shout/create?language=" + i18n.language, shout)
+      .then((res) => {
+        response(res.status, res.data);
+      })
+      .catch((error) => {
+        setOthersErrors(
+          <div className="alert alert-dark">
+            <strong>{t("error.connection")}</strong>
+            <ProgressBar
+              mode="indeterminate"
+              style={{ height: "6px" }}
+            ></ProgressBar>
+          </div>
+        );
+        setTimeout(deleteErrorMessage, 10000);
+      });
   };
 
-  respuesta(status, data) {
+  function response(status, data) {
+    function deleteSuccesMessage() {
+      setSucces(null);
+    }
+
     if (status === 203) {
-      data.forEach((e) => this.error(e.field, e.defaultMessage));
+      data.forEach((e) => error(e.field, e.defaultMessage));
     } else if (status === 201) {
-      this.setState({
-        author: "",
-        text: "",
-        info: "",
-        succes: (
-          <div className="alert alert-success" role="alert">
-            Successful creation
-          </div>
-        ),
-      });
+      setAuthor("");
+      setText("");
+      setInfo("");
+      setSucces(
+        <div className="alert alert-success" role="alert">
+          {t("shouts.create.succes")}
+        </div>
+      );
+      setTimeout(deleteSuccesMessage, 5000);
     } else {
-      this.setState({
-        othersErrors: (
-          <div className="alert alert-danger" role="alert">
-            {data}
-          </div>
-        ),
-      });
+      setOthersErrors(
+        <div className="alert alert-danger" role="alert">
+          {data}
+        </div>
+      );
     }
   }
 
-  error(campo, mensaje) {
-    if (campo === "author") {
-      this.setState({
-        authorError: (
-          <div className="alert alert-danger" role="alert">
-            {mensaje}
-          </div>
-        ),
-      });
-    } else if (campo === "text") {
-      this.setState({
-        textError: (
-          <div className="alert alert-danger" role="alert">
-            {mensaje}
-          </div>
-        ),
-      });
-    } else if (campo === "info") {
-      this.setState({
-        infoError: (
-          <div className="alert alert-danger" role="alert">
-            {mensaje}
-          </div>
-        ),
-      });
+  function error(field, message) {
+    if (field === "author") {
+      setAuthorError(
+        <div className="alert alert-danger" role="alert">
+          {message}
+        </div>
+      );
+    } else if (field === "text") {
+      setTextError(
+        <div className="alert alert-danger" role="alert">
+          {message}
+        </div>
+      );
+    } else if (field === "info") {
+      setInfoError(
+        <div className="alert alert-danger" role="alert">
+          {message}
+        </div>
+      );
     }
   }
 
-  render() {
-    return (
-      <div>
-        <div className="c">
-          <div className="login">
-            <form onSubmit={this.handleSubmit}>
-              {this.state.succes}
-              {this.state.othersErrors}
+  return (
+    <div>
+      <div className="c">
+        <div className="login">
+          <form onSubmit={handleSubmit}>
+            {succes}
+            {othersErrors}
+            <div className="i">
+              {authorError}
+              <div className="p-inputgroup">
+                <span className="p-inputgroup-addon">
+                  <i className="pi pi-user"></i>
+                </span>
+                <InputText
+                  placeholder={t("shouts.create.label.author")}
+                  name="author"
+                  type="text"
+                  value={author}
+                  onChange={authorChange}
+                />
+              </div>
+            </div>
+            <div className="i">
+              {textError}
+              <div className="p-inputgroup">
+                <span className="p-inputgroup-addon">
+                  <i className="pi pi-align-center"></i>
+                </span>
+                <InputText
+                  placeholder={t("shouts.create.label.text")}
+                  name="text"
+                  type="text"
+                  value={text}
+                  onChange={textChange}
+                />
+              </div>
+            </div>
+            <div className="i">
+              {infoError}
+              <div className="p-inputgroup">
+                <span className="p-inputgroup-addon">
+                  <i className="pi pi-info"></i>
+                </span>
+                <InputText
+                  placeholder={t("shouts.create.label.info")}
+                  name="info"
+                  type="text"
+                  value={info}
+                  onChange={infoChange}
+                />
+              </div>
+            </div>
+            <div className="b">
               <div className="i">
-                {this.state.authorError}
-                <div className="p-inputgroup">
-                  <span className="p-inputgroup-addon">
-                    <i className="pi pi-user"></i>
-                  </span>
-                  <InputText
-                    placeholder="Author"
-                    name="author"
-                    type="text"
-                    value={this.state.author}
-                    onChange={this.author}
-                  />
-                </div>
+                <Button
+                  className="p-button-secondary"
+                  label={t("shouts.create.send")}
+                  icon="pi pi-fw pi-check"
+                />
               </div>
-              <div className="i">
-                {this.state.textError}
-                <div className="p-inputgroup">
-                  <span className="p-inputgroup-addon">
-                    <i className="pi pi-align-center"></i>
-                  </span>
-                  <InputText
-                    placeholder="Text"
-                    name="text"
-                    type="text"
-                    value={this.state.text}
-                    onChange={this.text}
-                  />
-                </div>
-              </div>
-              <div className="i">
-                {this.state.infoError}
-                <div className="p-inputgroup">
-                  <span className="p-inputgroup-addon">
-                    <i className="pi pi-info"></i>
-                  </span>
-                  <InputText
-                    placeholder="Info"
-                    name="info"
-                    type="text"
-                    value={this.state.info}
-                    onChange={this.info}
-                  />
-                </div>
-              </div>
-              <div className="b">
-                <div className="i">
-                  <Button
-                    className="p-button-secondary"
-                    label="Shout!"
-                    icon="pi pi-fw pi-check"
-                  />
-                </div>
-              </div>
-            </form>
-          </div>
+            </div>
+          </form>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default ShoutCreate;
