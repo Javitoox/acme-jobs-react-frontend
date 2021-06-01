@@ -50,7 +50,7 @@ function ShoutCreate(props) {
     }
 
     axios
-      .post(props.baseUrl + "/shout/create?language=" + i18n.language, shout)
+      .post(props.baseUrl + "/anonymous/shout/create?language=" + i18n.language, shout)
       .then((res) => {
         response(res.status, res.data);
       })

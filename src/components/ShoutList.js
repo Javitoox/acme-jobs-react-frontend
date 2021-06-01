@@ -20,7 +20,7 @@ function ShoutList(props) {
 
   useEffect(() => {
     axios
-      .get(props.baseUrl + "/shout?language=" + i18n.language)
+      .get(props.baseUrl + "/anonymous/shout/list?language=" + i18n.language)
       .then((res) => {
         setState({ data: res.data });
       })
