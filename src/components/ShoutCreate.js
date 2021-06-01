@@ -11,9 +11,11 @@ function ShoutCreate(props) {
   const [author, setAuthor] = useState("");
   const [text, setText] = useState("");
   const [info, setInfo] = useState("");
+  const [budget, setBudget] = useState("");
   const [authorError, setAuthorError] = useState(null);
   const [textError, setTextError] = useState(null);
   const [infoError, setInfoError] = useState(null);
+  const [budgetError, setBudgetError] = useState(null);
   const [succes, setSucces] = useState(null);
   const [othersErrors, setOthersErrors] = useState(null);
 
@@ -29,12 +31,17 @@ function ShoutCreate(props) {
     setInfo(event.target.value);
   }
 
+  function budgetChange(event) {
+    setBudget(event.target.value);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
     setAuthorError(null);
     setTextError(null);
     setInfoError(null);
+    setBudgetError(null);
     setSucces(null);
     setOthersErrors(null);
 
@@ -42,6 +49,7 @@ function ShoutCreate(props) {
       author: author,
       text: text,
       info: info,
+      budget: budget,
       moment: new Date(),
     };
 
@@ -79,6 +87,7 @@ function ShoutCreate(props) {
       setAuthor("");
       setText("");
       setInfo("");
+      setBudget("");
       setSucces(
         <div className="alert alert-success" role="alert">
           {t("shouts.create.succes")}
@@ -109,6 +118,12 @@ function ShoutCreate(props) {
       );
     } else if (field === "info") {
       setInfoError(
+        <div className="alert alert-danger" role="alert">
+          {message}
+        </div>
+      );
+    } else if (field === "budget") {
+      setBudgetError(
         <div className="alert alert-danger" role="alert">
           {message}
         </div>
@@ -165,6 +180,21 @@ function ShoutCreate(props) {
                   type="text"
                   value={info}
                   onChange={infoChange}
+                />
+              </div>
+            </div>
+            <div className="i">
+              {budgetError}
+              <div className="p-inputgroup">
+                <span className="p-inputgroup-addon">
+                  <i className="pi pi-money-bill"></i>
+                </span>
+                <InputText
+                  placeholder={t("shouts.create.label.budget")}
+                  name="budget"
+                  type="text"
+                  value={budget}
+                  onChange={budgetChange}
                 />
               </div>
             </div>

@@ -42,6 +42,7 @@ function ShoutList(props) {
     <div>
       {errorConection}
       <DataTable
+        className="p-datatable-sm"
         paginator
         rows={5}
         value={state.data}
@@ -66,6 +67,20 @@ function ShoutList(props) {
           filterPlaceholder={t("shouts.list.search.text")}
           field="text"
           header={t("shouts.list.text")}
+        ></Column>
+         <Column
+          sortable
+          filter
+          filterPlaceholder={t("shouts.list.search.budget")}
+          field="budget"
+          header={t("shouts.list.budget")}
+        ></Column>
+        <Column
+          sortable
+          filter
+          filterPlaceholder={t("shouts.list.search.info")}
+          field="info"
+          header={t("shouts.list.info")}
         ></Column>
       </DataTable>
     </div>

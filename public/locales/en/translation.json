@@ -16,7 +16,8 @@
             "label":{
                 "author": "Author",
                 "text": "Text",
-                "info": "Information"
+                "info": "Information",
+                "budget": "Budget"
             },
             "send": "Shout!",
             "succes": "Successful creation"
@@ -26,9 +27,13 @@
             "moment": "Moment",
             "author": "Author",
             "text": "Text",
+            "info": "Information",
+            "budget": "budget",
             "search": {
                 "author": "Search by author",
-                "text": "Search by text"
+                "text": "Search by text",
+                "info": "Search by information",
+                "budget": "Search by budget"
             }
         }
     },
