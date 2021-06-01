@@ -5,13 +5,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Versions
 
 The project has been developed with React version 17.0.2, npm version 7.8 and Node version 14.15.0.
-In addition, to start the project it is necessary to install certain React libraries, installed with the following commands:
+In addition, to start the project it is necessary to install certain React libraries. These libraries have been installed with the following commands:
 - npm install primeicons --save
 - npm install primereact --save
 - npm install primeflex --save
 - npm install react-transition-group --save
 - npm install react-i18next i18next --save
 - npm install i18next-http-backend i18next-browser-languagedetector --save
+You can see the exact versions of the libraries in the package.json file of the project .
 
 ## Available Scripts
 
