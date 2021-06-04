@@ -4,6 +4,7 @@ import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { useTranslation } from "react-i18next";
 import { ProgressBar } from "primereact/progressbar";
+import { i18nNumber } from "./i18nNumber";
 
 function ShoutList(props) {
   const { t, i18n } = useTranslation();
@@ -22,6 +23,7 @@ function ShoutList(props) {
     axios
       .get(props.baseUrl + "/anonymous/shout/list?language=" + i18n.language)
       .then((res) => {
+        i18nNumber(res.data, i18n.language)
         setState({ data: res.data });
       })
       .catch((error) => {
