@@ -10,7 +10,7 @@ import { Button } from "primereact/button";
 function App() {
   const { t, i18n } = useTranslation();
 
-  const baseUrl = "http://localhost:8080/Acme-Jobs/api";
+  const baseUrl = "http://localhost:8080/Acme-Work-Plans/api";
 
   const [state, setState] = useState({
     shoutList: null,
