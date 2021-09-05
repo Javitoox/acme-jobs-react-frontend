@@ -25,7 +25,7 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
 Now you can start the back-end for which this front-end has been developed and start using it.\
-The developed back-end will be deployed at the address [http://localhost:8080/Acme-Jobs](http://localhost:8080/Acme-Jobs).
+The developed back-end will be deployed at the address [http://localhost:8080/Acme-Work-Plans](http://localhost:8080/Acme-Work-Plans).
 
 ## Development environment recommendations
 
